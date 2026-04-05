@@ -343,7 +343,7 @@
                     <div class="form-success" id="formSuccess">
                         <i class="fa-solid fa-circle-check"></i> Request received! We will contact you shortly to confirm your schedule.
                     </div>
-                    <form class="booking-form" id="bookingForm">
+                    <form class="booking-form" id="bookingForm" action="https://script.google.com/macros/s/AKfycbyoRdEDAfbjHUrzU1-xFZ9RfLvI6SftqeFkHo7hOVfT6l9NOIqg1UOKjDl2v33RH4k-/exec" method="POST">
                         <h3 style="color: var(--white); margin-bottom: 1rem; font-size: 1.5rem;">Request an Appointment</h3>
                         
                         <div class="form-group">
@@ -523,22 +523,44 @@
             });
         });
 
-        // 4. Form Submission Handling (Prevents page reload for demo)
+        // 4. Form Submission Handling (Sends to Google Sheets)
         document.getElementById('bookingForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Stop page from refreshing
+            e.preventDefault(); // Stop the page from reloading
             
-            // Show success message
-            const successMsg = document.getElementById('formSuccess');
-            successMsg.style.display = 'block';
-            
-            // Clear the form fields
-            this.reset();
-            
-            // Hide message after 5 seconds
-            setTimeout(() => {
-                successMsg.style.display = 'none';
-            }, 5000);
+            const form = e.target;
+            const data = new FormData(form);
+            const action = form.action;
+
+            // Show "Sending..." status on the button (optional)
+            const btn = form.querySelector('button');
+            const originalBtnText = btn.innerText;
+            btn.innerText = "Sending...";
+            btn.disabled = true;
+
+            // Use Fetch to send the data to Google without leaving the page
+            fetch(action, {
+                method: 'POST',
+                body: data,
+                mode: 'no-cors' // Required for Google Apps Script
+            })
+            .then(() => {
+                // Show success message
+                const successMsg = document.getElementById('formSuccess');
+                successMsg.style.display = 'block';
+                
+                // Reset form and button
+                form.reset();
+                btn.innerText = originalBtnText;
+                btn.disabled = false;
+
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 5000);
+            })
+            .catch(error => {
+                alert("Something went wrong. Please try again or message us on Facebook!");
+                btn.innerText = originalBtnText;
+                btn.disabled = false;
+            });
         });
-    </script>
-</body>
-</html>
