@@ -4,239 +4,1153 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JM Autoshop | Elite Automotive Solutions</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        /* ─── TOKENS ─────────────────────────────────── */
         :root {
-            --primary-red: #E60000;
-            --dark-bg: #0A0A0A;
-            --card-bg: #161616;
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-main: #FFFFFF;
-            --text-dim: #A0A0A0;
+            --red:        #D90000;
+            --red-dim:    rgba(217, 0, 0, 0.15);
+            --red-glow:   rgba(217, 0, 0, 0.35);
+            --bg:         #080808;
+            --surface:    #111111;
+            --surface-2:  #181818;
+            --border:     rgba(255,255,255,0.07);
+            --border-red: rgba(217,0,0,0.4);
+            --text:       #F0F0F0;
+            --muted:      #6B6B6B;
+            --dim:        #999;
+
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-body:    'Outfit', sans-serif;
+
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 22px;
+
+            --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--dark-bg); 
-            color: var(--text-main);
+        /* ─── RESET ──────────────────────────────────── */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
             overflow-x: hidden;
+            line-height: 1.65;
+        }
+
+        /* Noise texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.4;
+        }
+
+        /* ─── UTILITY ────────────────────────────────── */
+        .container { width: 90%; max-width: 1180px; margin: 0 auto; }
+        .label {
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--red);
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.4rem, 5vw, 3.8rem);
+            line-height: 1.0;
+            letter-spacing: 0.03em;
+        }
+        .red { color: var(--red); }
+        .muted { color: var(--muted); }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
+        .reveal-delay-6 { transition-delay: 0.6s; }
+
+        /* ─── NAV ────────────────────────────────────── */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 0 5%;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(8, 8, 8, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            letter-spacing: 0.12em;
+            color: var(--text);
+        }
+        .nav-logo span { color: var(--red); }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+        .nav-links a {
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--dim);
+            text-decoration: none;
+            transition: color var(--transition);
+            font-weight: 500;
+        }
+        .nav-links a:hover { color: var(--text); }
+
+        .nav-cta {
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--red);
+            background: var(--red-dim);
+            border: 1px solid var(--border-red);
+            padding: 9px 20px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+        .nav-cta:hover {
+            background: rgba(217, 0, 0, 0.25);
+            box-shadow: 0 0 20px var(--red-glow);
+        }
+
+        @media (max-width: 700px) {
+            .nav-links { display: none; }
+        }
+
+        /* ─── HERO ───────────────────────────────────── */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding: 130px 0 80px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(105deg, rgba(8,8,8,0.97) 40%, rgba(8,8,8,0.55) 100%),
+                url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2200') center/cover no-repeat;
+        }
+
+        /* Subtle red gradient bloom */
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: 5%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(217,0,0,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Diagonal grid lines accent */
+        .hero-grid-lines {
+            position: absolute;
+            right: 0; top: 0;
+            width: 55%;
+            height: 100%;
+            background-image:
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 40px,
+                    rgba(255,255,255,0.015) 40px,
+                    rgba(255,255,255,0.015) 41px
+                );
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.2s forwards;
+        }
+        .hero-eyebrow-line {
+            width: 32px; height: 2px;
+            background: var(--red);
+        }
+        .hero-eyebrow span {
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--red);
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(3.8rem, 10vw, 7.5rem);
+            line-height: 0.95;
+            letter-spacing: 0.03em;
+            margin-bottom: 28px;
+            opacity: 0;
+            animation: fadeUp 0.9s ease 0.35s forwards;
+        }
+
+        .hero-sub {
+            font-size: 1.05rem;
+            color: var(--dim);
+            max-width: 420px;
+            font-weight: 300;
+            margin-bottom: 44px;
+            opacity: 0;
+            animation: fadeUp 0.9s ease 0.5s forwards;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            opacity: 0;
+            animation: fadeUp 0.9s ease 0.65s forwards;
+        }
+
+        .btn-primary {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            color: #fff;
+            background: var(--red);
+            padding: 14px 36px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            transition: transform var(--transition), box-shadow var(--transition);
+            display: inline-block;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 32px rgba(217,0,0,0.4);
+        }
+
+        .btn-ghost {
+            font-size: 0.82rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--dim);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color var(--transition);
+        }
+        .btn-ghost:hover { color: var(--text); }
+        .btn-ghost i { font-size: 0.75rem; }
+
+        /* Hero stats bar */
+        .hero-stats {
+            margin-top: 56px;
+        }
+        .hero-stats-inner {
+            display: flex;
+            gap: 0;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            width: fit-content;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.85s forwards;
+        }
+        .stat-item {
+            padding: 20px 36px;
+            border-right: 1px solid var(--border);
+            background: rgba(17,17,17,0.8);
+            backdrop-filter: blur(10px);
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-num {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            letter-spacing: 0.05em;
+            line-height: 1;
+            color: var(--red);
+        }
+        .stat-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ─── SERVICES ───────────────────────────────── */
+        .services {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .services-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 64px;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+        }
+
+        .service-card {
+            background: var(--surface);
+            padding: 40px 36px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            cursor: default;
+            transition: background var(--transition), border-color var(--transition);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--red);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .service-card:hover {
+            background: var(--surface-2);
+            border-color: var(--border-red);
+        }
+        .service-card:hover::before { transform: scaleX(1); }
+
+        .service-icon-wrap {
+            width: 52px; height: 52px;
+            background: var(--red-dim);
+            border-radius: var(--radius-sm);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 24px;
+            border: 1px solid var(--border-red);
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+        .service-card:hover .service-icon-wrap {
+            background: rgba(217,0,0,0.25);
+            box-shadow: 0 0 20px rgba(217,0,0,0.25);
+        }
+        .service-icon-wrap i {
+            color: var(--red);
+            font-size: 1.2rem;
+        }
+
+        .service-num {
+            position: absolute;
+            top: 28px; right: 28px;
+            font-family: var(--font-display);
+            font-size: 4rem;
+            color: rgba(255,255,255,0.03);
+            line-height: 1;
+            transition: color var(--transition);
+        }
+        .service-card:hover .service-num { color: rgba(217,0,0,0.06); }
+
+        .service-title {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            letter-spacing: 0.06em;
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+
+        .service-desc {
+            font-size: 0.88rem;
+            color: var(--muted);
             line-height: 1.6;
         }
 
-        /* Hero & Navigation */
-        nav {
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 5%; background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(15px); border-bottom: 1px solid var(--glass-border);
+        .service-badge {
+            display: inline-block;
+            margin-top: 16px;
+            font-size: 0.65rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--red);
+            background: var(--red-dim);
+            border: 1px solid var(--border-red);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 600;
         }
 
-        .logo { font-family: 'Orbitron'; font-size: 1.5rem; letter-spacing: 2px; }
-        .logo span { color: var(--primary-red); }
-
-        .hero {
-            height: 90vh;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)), 
-                        url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=2000') center/cover;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; padding: 0 20px;
+        @media (max-width: 900px) {
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 560px) {
+            .services-grid { grid-template-columns: 1fr; }
+            .service-card { padding: 32px 28px; }
         }
 
-        .hero h1 { 
-            font-family: 'Orbitron'; font-size: clamp(2rem, 8vw, 4.5rem); 
-            line-height: 1.1; margin-bottom: 20px;
+        /* ─── ABOUT STRIP ────────────────────────────── */
+        .about-strip {
+            padding: 100px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
 
-        /* The Professional Form Section */
-        .booking-container {
-            max-width: 1100px; margin: -100px auto 100px; padding: 0 20px;
-            display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px;
+        .about-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
         }
 
-        .info-panel {
-            background: var(--card-bg); border-radius: 20px; padding: 40px;
-            border: 1px solid var(--glass-border);
+        .about-visual {
+            position: relative;
         }
 
-        .booking-card {
-            background: var(--card-bg); border-radius: 24px; padding: 50px;
-            border: 1px solid var(--primary-red);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        .about-img-frame {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .about-img-frame img {
+            width: 100%;
+            display: block;
+            filter: grayscale(30%) contrast(1.05);
+            transition: filter var(--transition);
+        }
+        .about-img-frame:hover img { filter: grayscale(0%) contrast(1.08); }
+
+        .about-accent-box {
+            position: absolute;
+            bottom: -20px; right: -20px;
+            background: var(--red);
+            border-radius: var(--radius-sm);
+            padding: 20px 28px;
+            text-align: center;
+        }
+        .about-accent-box .num {
+            font-family: var(--font-display);
+            font-size: 2.4rem;
+            line-height: 1;
+            color: #fff;
+        }
+        .about-accent-box .lbl {
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.75);
+            margin-top: 4px;
         }
 
-        h2 { font-family: 'Orbitron'; color: var(--primary-red); margin-bottom: 15px; }
+        .about-text { }
 
-        .input-group { margin-bottom: 25px; position: relative; }
-        label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 8px; }
-        
-        input, select, textarea {
-            width: 100%; padding: 14px; background: #222; border: 1px solid #333;
-            border-radius: 8px; color: white; transition: 0.3s ease; font-size: 1rem;
+        .about-text p {
+            color: var(--dim);
+            font-weight: 300;
+            font-size: 1rem;
+            margin-bottom: 24px;
         }
 
-        input:focus { border-color: var(--primary-red); outline: none; background: #2a2a2a; }
+        .about-pillars {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 36px;
+        }
+
+        .pillar {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: border-color var(--transition);
+        }
+        .pillar:hover { border-color: var(--border-red); }
+        .pillar i { color: var(--red); font-size: 1rem; min-width: 18px; }
+        .pillar span { font-size: 0.85rem; font-weight: 500; }
+
+        @media (max-width: 800px) {
+            .about-inner { grid-template-columns: 1fr; gap: 48px; }
+            .about-visual { max-width: 480px; margin: 0 auto; }
+        }
+
+        /* ─── BOOKING ────────────────────────────────── */
+        .booking-section {
+            padding: 120px 0;
+        }
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.35fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .booking-info { }
+
+        .booking-info p {
+            color: var(--dim);
+            font-weight: 300;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            font-size: 0.98rem;
+        }
+
+        .contact-list { list-style: none; }
+        .contact-list li {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.92rem;
+        }
+        .contact-list li:first-child { border-top: 1px solid var(--border); }
+        .contact-icon {
+            width: 36px; height: 36px;
+            background: var(--red-dim);
+            border: 1px solid var(--border-red);
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .contact-icon i { color: var(--red); font-size: 0.8rem; }
+        .contact-list .contact-val { color: var(--text); font-weight: 500; }
+        .contact-list .contact-lbl { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; }
+
+        /* Form card */
+        .form-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+        }
+
+        .form-card-title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            letter-spacing: 0.08em;
+            margin-bottom: 36px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 22px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--muted);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 13px 16px;
+            background: var(--surface-2);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .input-group select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6B6B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+
+        .input-group input::placeholder,
+        .input-group textarea::placeholder { color: var(--muted); }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            outline: none;
+            border-color: var(--red);
+            background: #1a1a1a;
+            box-shadow: 0 0 0 3px rgba(217,0,0,0.1);
+        }
+
+        .input-group select option { background: #1a1a1a; }
+
+        textarea { resize: vertical; min-height: 110px; }
 
         .btn-submit {
-            width: 100%; padding: 18px; background: var(--primary-red); color: white;
-            border: none; border-radius: 12px; font-family: 'Orbitron'; font-weight: 900;
-            cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-transform: uppercase; font-size: 1rem;
+            width: 100%;
+            padding: 16px;
+            background: var(--red);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+            transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+            margin-top: 8px;
+        }
+        .btn-submit:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 30px rgba(217,0,0,0.4);
+        }
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
-        .btn-submit:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(230, 0, 0, 0.3); }
-
-        /* Team Image Styling */
-        .team-img {
-            width: 100%; border-radius: 15px; border: 1px solid var(--glass-border);
-            margin-top: 20px; filter: grayscale(20%);
+        .form-notice {
+            display: none;
+            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            font-size: 0.88rem;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+        .form-notice.success {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #86efac;
+        }
+        .form-notice.error {
+            background: rgba(217, 0, 0, 0.1);
+            border: 1px solid rgba(217, 0, 0, 0.3);
+            color: #fca5a5;
         }
 
-        @media (max-width: 850px) {
-            .booking-container { grid-template-columns: 1fr; margin-top: 50px; }
-            .hero { height: 60vh; }
+        @media (max-width: 950px) {
+            .booking-grid { grid-template-columns: 1fr; }
         }
+        @media (max-width: 540px) {
+            .form-row { grid-template-columns: 1fr; }
+            .form-card { padding: 32px 24px; }
+        }
+
+        /* ─── FOOTER ─────────────────────────────────── */
+        footer {
+            background: #000;
+            border-top: 1px solid var(--border);
+            padding: 60px 0 36px;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            letter-spacing: 0.12em;
+        }
+        .footer-logo span { color: var(--red); }
+
+        .footer-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+        .footer-links a {
+            font-size: 0.78rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+        .footer-links a:hover { color: var(--text); }
+
+        .footer-divider {
+            height: 1px;
+            background: var(--border);
+            margin-bottom: 28px;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .footer-bottom p {
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+        .footer-phones {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .footer-phones a {
+            font-size: 0.78rem;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+        .footer-phones a:hover { color: var(--red); }
+
+        /* ─── SCROLLBAR ──────────────────────────────── */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--red); }
+
     </style>
 </head>
 <body>
 
+    <!-- ─── NAV ─────────────────────────────────────── -->
     <nav>
-        <div class="logo">JM <span>AUTOSHOP</span></div>
-        <div style="font-size: 0.8rem; letter-spacing: 1px;">BOALAN, ZAMBOANGA CITY</div>
+        <div class="nav-logo">JM <span>AUTOSHOP</span></div>
+        <ul class="nav-links">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#booking">Contact</a></li>
+        </ul>
+        <a class="nav-cta" href="#booking">Book a Service</a>
     </nav>
 
+    <!-- ─── HERO ─────────────────────────────────────── -->
     <section class="hero">
-        <h1>CREATING<br>AUTOMOTIVE<br><span>SOLUTIONS</span></h1>
-        <p style="color: var(--text-dim); max-width: 500px;">Your trusted family-owned expert in engine overhauls, repainting, and electrical diagnostics.</p>
+        <div class="hero-bg"></div>
+        <div class="hero-grid-lines"></div>
+
+        <div class="container hero-content">
+            <div class="hero-eyebrow">
+                <div class="hero-eyebrow-line"></div>
+                <span>Boalan, Zamboanga City</span>
+            </div>
+
+            <h1>
+                AUTOMOTIVE<br>
+                <span class="red">SOLUTIONS</span><br>
+                YOU TRUST
+            </h1>
+
+            <p class="hero-sub">
+                Family-owned. Expert hands. From engine overhauls to precision repainting — your vehicle is in the right place.
+            </p>
+
+            <div class="hero-actions">
+                <a class="btn-primary" href="#booking">Book a Service</a>
+                <a class="btn-ghost" href="#services"><i class="fas fa-arrow-down"></i> Our Services</a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="hero-stats-inner">
+                    <div class="stat-item">
+                        <div class="stat-num">6+</div>
+                        <div class="stat-label">Services Offered</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">1yr</div>
+                        <div class="stat-label">Paint Warranty</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">100%</div>
+                        <div class="stat-label">Family Owned</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <div class="booking-container">
-        <div class="info-panel">
-            <h2>Our Commitment</h2>
-            <p style="margin-bottom: 20px;">"Locally owned and operated. We understand how important it is to have a safe vehicle for your family."</p>
-            
-            <ul style="list-style: none; color: var(--primary-red); font-weight: 600;">
-                <li style="margin-bottom: 10px;"><i class="fas fa-check-circle"></i> Repainting & Washover</li>
-                <li style="margin-bottom: 10px;"><i class="fas fa-check-circle"></i> Engine Overhauling</li>
-                <li style="margin-bottom: 10px;"><i class="fas fa-check-circle"></i> Electrical Services</li>
-            </ul>
+    <!-- ─── SERVICES ─────────────────────────────────── -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="services-header">
+                <div>
+                    <span class="label">What We Do</span>
+                    <h2 class="section-title reveal">OUR<br><span class="red">SERVICES</span></h2>
+                </div>
+                <p class="reveal reveal-delay-1" style="color:var(--muted); max-width:340px; font-size:0.95rem; font-weight:300;">
+                    Comprehensive automotive care — from diagnostics to full engine rebuilds, delivered with precision.
+                </p>
+            </div>
 
-            <img src="images/jmautoshop-team.jpg" alt="JM Autoshop Team" class="team-img">
+            <div class="services-grid">
+
+                <div class="service-card reveal reveal-delay-1">
+                    <div class="service-num">01</div>
+                    <div class="service-icon-wrap">
+                        <i class="fas fa-spray-can"></i>
+                    </div>
+                    <div class="service-title">REPAINTING &amp;<br>WASHOVER</div>
+                    <p class="service-desc">Full vehicle repainting, washover, and precision retouch using professional-grade materials.</p>
+                    <span class="service-badge">1 Year Warranty</span>
+                </div>
+
+                <div class="service-card reveal reveal-delay-2">
+                    <div class="service-num">02</div>
+                    <div class="service-icon-wrap">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="service-title">ELECTRICAL<br>SERVICES</div>
+                    <p class="service-desc">Complete automotive electrical diagnostics, wiring repair, and system troubleshooting.</p>
+                </div>
+
+                <div class="service-card reveal reveal-delay-3">
+                    <div class="service-num">03</div>
+                    <div class="service-icon-wrap">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="service-title">ENGINE GENERAL<br>OVERHAULING</div>
+                    <p class="service-desc">Full engine overhaul and rebuild — restoring power, performance, and reliability to your vehicle.</p>
+                </div>
+
+                <div class="service-card reveal reveal-delay-4">
+                    <div class="service-num">04</div>
+                    <div class="service-icon-wrap">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="service-title">DIAGNOSE<br>TROUBLE CODES</div>
+                    <p class="service-desc">OBD diagnostics to accurately identify fault codes and prevent further vehicle damage.</p>
+                </div>
+
+                <div class="service-card reveal reveal-delay-5">
+                    <div class="service-num">05</div>
+                    <div class="service-icon-wrap">
+                        <i class="fas fa-hammer"></i>
+                    </div>
+                    <div class="service-title">BODY REPAIR &amp;<br>WELDING</div>
+                    <p class="service-desc">Professional auto body repair, panel reshaping, and structural welding for all vehicle types.</p>
+                </div>
+
+                <div class="service-card reveal reveal-delay-6">
+                    <div class="service-num">06</div>
+                    <div class="service-icon-wrap">
+                        <i class="fas fa-boxes-stacked"></i>
+                    </div>
+                    <div class="service-title">SPARE PARTS<br>SUPPLY</div>
+                    <p class="service-desc">Automotive spare parts for cars and light trucks, available on order basis at competitive prices.</p>
+                    <span class="service-badge">Order Basis</span>
+                </div>
+
+            </div>
         </div>
+    </section>
 
-        <div class="booking-card">
-    <h3 style="font-family: 'Orbitron'; margin-bottom: 30px;">BOOK A SERVICE</h3>
-    
-    <div data-fs-success style="display:none; background: #155724; color: #d4edda; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
-        ✅ Booking Request Received! We will contact you shortly.
-    </div>
-    <div data-fs-error style="display:none; background: #721c24; color: #f8d7da; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
-        ❌ Oops! Something went wrong. Please try again.
-    </div>
-    
-    <form id="booking-form" action="https://formspree.io/f/xqeggjzd" method="POST">
-        <div class="input-group">
-            <label>Full Name</label>
-            <input type="text" name="Name" placeholder="Juan Dela Cruz" required data-fs-field>
+    <!-- ─── ABOUT ─────────────────────────────────────── -->
+    <section class="about-strip" id="about">
+        <div class="container">
+            <div class="about-inner">
+                <div class="about-visual reveal">
+                    <div class="about-img-frame">
+                        <img src="images/jmautoshop-team.jpg"
+                             onerror="this.src='https://images.unsplash.com/photo-1625047509248-ec889cbff17f?q=80&w=800'"
+                             alt="JM Autoshop Team">
+                    </div>
+                    <div class="about-accent-box">
+                        <div class="num">JM</div>
+                        <div class="lbl">Trusted Shop</div>
+                    </div>
+                </div>
+
+                <div class="about-text reveal reveal-delay-2">
+                    <span class="label">Our Story</span>
+                    <h2 class="section-title" style="margin-bottom: 28px;">
+                        LOCALLY OWNED.<br><span class="red">FAMILY DRIVEN.</span>
+                    </h2>
+                    <p>
+                        Our commitment to customer service sets us apart from other car repair shops. We are locally owned and operated, and as a family-owned business, we understand how important it is to have a safe vehicle.
+                    </p>
+                    <p>
+                        Whether it's taking you to work, school, or anywhere you want to go — we treat your car with the same care we give our own.
+                    </p>
+
+                    <div class="about-pillars">
+                        <div class="pillar">
+                            <i class="fas fa-shield-halved"></i>
+                            <span>Quality First</span>
+                        </div>
+                        <div class="pillar">
+                            <i class="fas fa-handshake"></i>
+                            <span>Honest Service</span>
+                        </div>
+                        <div class="pillar">
+                            <i class="fas fa-clock"></i>
+                            <span>Reliable Turnaround</span>
+                        </div>
+                        <div class="pillar">
+                            <i class="fas fa-star"></i>
+                            <span>Years of Experience</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="input-group">
-            <label>Contact Number</label>
-            <input type="tel" name="Phone" placeholder="09XX-XXX-XXXX" required data-fs-field>
+    <!-- ─── BOOKING ────────────────────────────────────── -->
+    <section class="booking-section" id="booking">
+        <div class="container">
+            <div class="booking-grid">
+
+                <div class="booking-info reveal">
+                    <span class="label">Get In Touch</span>
+                    <h2 class="section-title" style="margin-bottom:0">
+                        BOOK A<br><span class="red">SERVICE</span>
+                    </h2>
+                    <p>
+                        Fill out the form and we'll get back to you as soon as possible to confirm your appointment.
+                    </p>
+
+                    <ul class="contact-list">
+                        <li>
+                            <div class="contact-icon"><i class="fas fa-location-dot"></i></div>
+                            <div>
+                                <div class="contact-lbl">Location</div>
+                                <div class="contact-val">Boalan, Zamboanga City</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <div class="contact-lbl">Mobile 1</div>
+                                <div class="contact-val">0917-780-0360</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <div class="contact-lbl">Mobile 2</div>
+                                <div class="contact-val">0905-712-6739</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="contact-icon"><i class="fas fa-phone-volume"></i></div>
+                            <div>
+                                <div class="contact-lbl">Landline</div>
+                                <div class="contact-val">975-1914</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="form-card reveal reveal-delay-2">
+                    <div class="form-card-title">YOUR DETAILS</div>
+
+                    <div data-fs-success class="form-notice success">
+                        ✓ Booking request received! We'll contact you shortly.
+                    </div>
+                    <div data-fs-error class="form-notice error">
+                        ✕ Something went wrong. Please try again.
+                    </div>
+
+                    <form id="booking-form" action="https://formspree.io/f/xqeggjzd" method="POST">
+
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label>Full Name</label>
+                                <input type="text" name="Name" placeholder="Juan Dela Cruz" required data-fs-field>
+                            </div>
+                            <div class="input-group">
+                                <label>Contact Number</label>
+                                <input type="tel" name="Phone" placeholder="09XX-XXX-XXXX" required data-fs-field>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Vehicle Model</label>
+                            <input type="text" name="Vehicle" placeholder="Toyota Vios 2021" required data-fs-field>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Service Type</label>
+                            <select name="Service" required data-fs-field>
+                                <option value="" disabled selected>Select a service...</option>
+                                <option>Repainting / Washover / Retouch</option>
+                                <option>Engine General Overhaul & Rebuild</option>
+                                <option>Electrical Services</option>
+                                <option>Diagnose Trouble Codes</option>
+                                <option>Body Repair / Welding</option>
+                                <option>Spare Parts (Order Basis)</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Notes / Issues</label>
+                            <textarea name="Message" placeholder="Briefly describe your vehicle's condition or concern..." data-fs-field></textarea>
+                        </div>
+
+                        <input type="text" name="_gotcha" style="display:none">
+
+                        <button type="submit" class="btn-submit" data-fs-submit-btn>CONFIRM BOOKING</button>
+                    </form>
+                </div>
+
+            </div>
         </div>
+    </section>
 
-        <div class="input-group">
-            <label>Vehicle Model</label>
-            <input type="text" name="Vehicle" placeholder="Toyota Vios 2021" required data-fs-field>
+    <!-- ─── FOOTER ────────────────────────────────────── -->
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-logo">JM <span>AUTOSHOP</span></div>
+                <ul class="footer-links">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#booking">Book Now</a></li>
+                </ul>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 JM Autoshop. Boalan, Zamboanga City. All rights reserved.</p>
+                <div class="footer-phones">
+                    <a href="tel:09177800360">0917-780-0360</a>
+                    <a href="tel:09057126739">0905-712-6739</a>
+                    <a href="tel:9751914">975-1914</a>
+                </div>
+            </div>
         </div>
-
-        <div class="input-group">
-            <label>Service Type</label>
-            <select name="Service" required data-fs-field>
-                <option value="" disabled selected>Select service...</option>
-                <option>Repainting / Washover</option>
-                <option>Engine General Overhaul</option>
-                <option>Electrical / Diagnostics</option>
-                <option>Body Repair / Welding</option>
-            </select>
-        </div>
-
-        <div class="input-group">
-            <label>Notes / Issues</label>
-            <textarea name="Message" rows="4" placeholder="Briefly describe the car's condition..." data-fs-field></textarea>
-        </div>
-
-        <input type="text" name="_gotcha" style="display:none">
-
-        <button type="submit" class="btn-submit" data-fs-submit-btn>CONFIRM BOOKING</button>
-    </form>
-</div>
-
-    <footer style="text-align: center; padding: 50px 20px; background: #000; border-top: 1px solid var(--glass-border);">
-        <p style="color: var(--text-dim); font-size: 0.9rem;">&copy; 2026 JM Autoshop. Boalan, Zamboanga City. All rights reserved.</p>
     </footer>
-        <script src="https://unpkg.com/@formspree/ajax@1"></script>
 
+    <!-- ─── SCRIPTS ───────────────────────────────────── -->
     <script>
-      const form = document.getElementById("booking-form");
-      
-      async function handleSubmit(event) {
-        event.preventDefault();
-        const statusSuccess = document.querySelector('[data-fs-success]');
-        const statusError = document.querySelector('[data-fs-error]');
-        const button = document.querySelector('[data-fs-submit-btn]');
-        
-        // Visual feedback
-        button.innerHTML = "SENDING...";
-        button.disabled = true;
-        statusError.style.display = "none";
-
-        const data = new FormData(event.target);
-        
-        fetch(event.target.action, {
-          method: 'POST',
-          body: data,
-          headers: {
-              'Accept': 'application/json'
-          }
-        }).then(response => {
-          if (response.ok) {
-            // SUCCESS ACTIONS
-            statusSuccess.style.display = "block";
-            form.reset(); 
-            button.innerHTML = "CONFIRM BOOKING";
-            button.disabled = false;
-            
-            // Optional: Scroll to the success message
-            statusSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-            // Reset view after 5 seconds
-            setTimeout(() => {
-              statusSuccess.style.display = "none";
-            }, 5000);
-
-          } else {
-            // SERVER ERROR
-            response.json().then(data => {
-              statusError.innerHTML = "❌ Error: " + (data.errors ? data.errors[0].message : "Submission failed");
-              statusError.style.display = "block";
-              button.innerHTML = "TRY AGAIN";
-              button.disabled = false;
+        /* Scroll reveal */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(el => {
+                if (el.isIntersecting) {
+                    el.target.classList.add('visible');
+                    observer.unobserve(el.target);
+                }
             });
-          }
-        }).catch(error => {
-          // NETWORK ERROR
-          statusError.innerHTML = "❌ Network error. Please check your connection.";
-          statusError.style.display = "block";
-          button.innerHTML = "TRY AGAIN";
-          button.disabled = false;
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        /* Booking form — same logic as original, untouched */
+        const form = document.getElementById("booking-form");
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+            const statusSuccess = document.querySelector('[data-fs-success]');
+            const statusError   = document.querySelector('[data-fs-error]');
+            const button        = document.querySelector('[data-fs-submit-btn]');
+
+            button.innerHTML = "SENDING...";
+            button.disabled  = true;
+            statusError.style.display = "none";
+
+            const data = new FormData(event.target);
+
+            fetch(event.target.action, {
+                method:  'POST',
+                body:    data,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    statusSuccess.style.display = "block";
+                    form.reset();
+                    button.innerHTML = "CONFIRM BOOKING";
+                    button.disabled  = false;
+                    statusSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setTimeout(() => { statusSuccess.style.display = "none"; }, 5000);
+                } else {
+                    response.json().then(data => {
+                        statusError.innerHTML = "✕ Error: " + (data.errors ? data.errors[0].message : "Submission failed");
+                        statusError.style.display = "block";
+                        button.innerHTML = "TRY AGAIN";
+                        button.disabled  = false;
+                    });
+                }
+            }).catch(() => {
+                statusError.innerHTML = "✕ Network error. Please check your connection.";
+                statusError.style.display = "block";
+                button.innerHTML = "TRY AGAIN";
+                button.disabled  = false;
+            });
+        }
+
+        form.addEventListener("submit", handleSubmit);
+
+        /* Nav shrink on scroll */
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            nav.style.height = window.scrollY > 60 ? '60px' : '70px';
+            nav.style.background = window.scrollY > 60
+                ? 'rgba(8,8,8,0.95)'
+                : 'rgba(8,8,8,0.85)';
         });
-      }
-      
-      form.addEventListener("submit", handleSubmit);
     </script>
 
 </body>
