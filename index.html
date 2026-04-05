@@ -128,48 +128,52 @@
         </div>
 
         <div class="booking-card">
-            <h3 style="font-family: 'Orbitron'; margin-bottom: 30px;">BOOK A SERVICE</h3>
-            
-            <form action="https://formspree.io/f/xqeggjzd" 
-                  method="POST">
-                
-                <div class="input-group">
-                    <label>Full Name</label>
-                    <input type="text" name="Name" placeholder="Juan Dela Cruz" required>
-                </div>
-
-                <div class="input-group">
-                    <label>Contact Number</label>
-                    <input type="tel" name="Phone" placeholder="09XX-XXX-XXXX" required>
-                </div>
-
-                <div class="input-group">
-                    <label>Vehicle Model</label>
-                    <input type="text" name="Vehicle" placeholder="Toyota Vios 2021" required>
-                </div>
-
-                <div class="input-group">
-                    <label>Service Type</label>
-                    <select name="Service" required>
-                        <option value="" disabled selected>Select service...</option>
-                        <option>Repainting / Washover</option>
-                        <option>Engine General Overhaul</option>
-                        <option>Electrical / Diagnostics</option>
-                        <option>Body Repair / Welding</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label>Notes / Issues</label>
-                    <textarea name="Message" rows="4" placeholder="Briefly describe the car's condition..."></textarea>
-                </div>
-
-                <input type="text" name="_gotcha" style="display:none">
-
-                <button type="submit" class="btn-submit">CONFIRM BOOKING</button>
-            </form>
-        </div>
+    <h3 style="font-family: 'Orbitron'; margin-bottom: 30px;">BOOK A SERVICE</h3>
+    
+    <div data-fs-success style="display:none; background: #155724; color: #d4edda; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+        ✅ Booking Request Received! We will contact you shortly.
     </div>
+    <div data-fs-error style="display:none; background: #721c24; color: #f8d7da; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+        ❌ Oops! Something went wrong. Please try again.
+    </div>
+    
+    <form id="booking-form" action="https://formspree.io/f/xqeggjzd" method="POST">
+        <div class="input-group">
+            <label>Full Name</label>
+            <input type="text" name="Name" placeholder="Juan Dela Cruz" required data-fs-field>
+        </div>
+
+        <div class="input-group">
+            <label>Contact Number</label>
+            <input type="tel" name="Phone" placeholder="09XX-XXX-XXXX" required data-fs-field>
+        </div>
+
+        <div class="input-group">
+            <label>Vehicle Model</label>
+            <input type="text" name="Vehicle" placeholder="Toyota Vios 2021" required data-fs-field>
+        </div>
+
+        <div class="input-group">
+            <label>Service Type</label>
+            <select name="Service" required data-fs-field>
+                <option value="" disabled selected>Select service...</option>
+                <option>Repainting / Washover</option>
+                <option>Engine General Overhaul</option>
+                <option>Electrical / Diagnostics</option>
+                <option>Body Repair / Welding</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>Notes / Issues</label>
+            <textarea name="Message" rows="4" placeholder="Briefly describe the car's condition..." data-fs-field></textarea>
+        </div>
+
+        <input type="text" name="_gotcha" style="display:none">
+
+        <button type="submit" class="btn-submit" data-fs-submit-btn>CONFIRM BOOKING</button>
+    </form>
+</div>
 
     <footer style="text-align: center; padding: 50px 20px; background: #000; border-top: 1px solid var(--glass-border);">
         <p style="color: var(--text-dim); font-size: 0.9rem;">&copy; 2026 JM Autoshop. Boalan, Zamboanga City. All rights reserved.</p>
