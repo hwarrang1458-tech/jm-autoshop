@@ -178,6 +178,26 @@
     <footer style="text-align: center; padding: 50px 20px; background: #000; border-top: 1px solid var(--glass-border);">
         <p style="color: var(--text-dim); font-size: 0.9rem;">&copy; 2026 JM Autoshop. Boalan, Zamboanga City. All rights reserved.</p>
     </footer>
+        <script>
+  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+  
+  formspree('initForm', { 
+    formElement: '#booking-form', 
+    formId: 'xqeggjzd',
+    onSuccess: function(form, data) {
+      // 1. This clears all text fields and resets selects
+      form.reset(); 
+      
+      // 2. Optional: If you want to automatically hide the success message 
+      // after 5 seconds so they can see the empty form again:
+      setTimeout(() => {
+        document.querySelector('[data-fs-success]').style.display = 'none';
+        form.style.display = 'block';
+      }, 5000);
+    }
+  });
+</script>
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
 </body>
 </html>
