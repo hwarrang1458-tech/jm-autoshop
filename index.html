@@ -4,282 +4,563 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JM Autoshop | Auto Repair & Maintenance in Zamboanga City</title>
+    <meta name="description" content="Locally owned and operated family auto repair business in Boalan, Zamboanga City. We offer repainting, engine overhauls, electrical services, and more.">
+    <meta name="theme-color" content="#cc0000">
+    
+    <meta property="og:title" content="JM Autoshop | Auto Repair & Maintenance">
+    <meta property="og:description" content="Your trusted family-owned auto repair shop in Boalan, Zamboanga City.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.facebook.com/JMpohsotua">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630/0d0d0d/cc0000?text=JM+Autoshop+Zamboanga">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AutoRepair",
+      "name": "JM Autoshop",
+      "image": "https://via.placeholder.com/600x400/0d0d0d/cc0000?text=JM+Autoshop",
+      "url": "https://www.facebook.com/JMpohsotua",
+      "telephone": ["0917-780-0360", "0905-712-6739", "975-1914"],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Boalan",
+        "addressLocality": "Zamboanga City",
+        "postalCode": "7000",
+        "addressCountry": "PH"
+      },
+      "priceRange": "₱₱"
+    }
+    </script>
+
     <style>
-        /* Modern, Clean CSS Reset and Base Styles */
+        /* ==========================================================================
+           1. CSS VARIABLES & BASE STYLES
+           ========================================================================== */
         :root {
-            --primary-red: #cc0000; /* Matching the red from your flyer */
-            --dark-grey: #333333;
-            --light-grey: #f4f4f4;
+            --bg-dark: #0d0d0d;
+            --bg-steel: #111111;
+            --accent-red: #cc0000;
+            --accent-red-hover: #a30000;
+            --silver: #c0c0c0;
             --white: #ffffff;
-            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --light-gray: #f5f5f5;
+            --font-head: 'Montserrat', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --transition: all 0.3s ease;
         }
 
-        body {
-            margin: 0;
-            font-family: var(--font-family);
-            color: var(--dark-grey);
-            background-color: var(--light-grey);
-            line-height: 1.6;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+        body { font-family: var(--font-body); color: var(--white); background-color: var(--bg-dark); line-height: 1.6; overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 700; margin-bottom: 1rem; line-height: 1.2; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+        
+        /* Utility Classes */
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 5rem 0; }
+        .text-center { text-align: center; }
+        .text-red { color: var(--accent-red); }
+        .section-title { font-size: 2.5rem; text-transform: uppercase; color: var(--white); }
+        .section-subtitle { font-size: 1.1rem; color: var(--silver); margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto; }
+        
+        /* Buttons */
+        .btn { display: inline-block; padding: 14px 28px; font-weight: 700; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-family: var(--font-head); transition: var(--transition); border: 2px solid transparent; text-align: center; }
+        .btn-red { background: var(--accent-red); color: var(--white); }
+        .btn-red:hover { background: var(--accent-red-hover); transform: translateY(-2px); }
+        .btn-silver { background: transparent; color: var(--silver); border-color: var(--silver); }
+        .btn-silver:hover { background: var(--silver); color: var(--bg-dark); }
+        
+        /* Animations */
+        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
 
-        /* Container for content padding */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        /* ==========================================================================
+           2. NAVIGATION BAR
+           ========================================================================== */
+        nav { position: fixed; top: 0; width: 100%; background: rgba(13, 13, 13, 0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 2px solid var(--accent-red); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; max-width: 1400px; margin: 0 auto; }
+        .logo { font-family: var(--font-head); font-size: 1.8rem; font-weight: 900; color: var(--white); display: flex; align-items: center; gap: 10px; font-style: italic; }
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-red); }
+        .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: var(--white); }
 
-        h1, h2, h3 {
-            font-weight: 700;
-        }
+        /* ==========================================================================
+           3. HERO SECTION
+           ========================================================================== */
+        .hero { height: 100vh; min-height: 600px; background: linear-gradient(to bottom, rgba(13,13,13,0.8), rgba(13,13,13,0.95)), url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&q=80') center/cover no-repeat; display: flex; align-items: center; justify-content: flex-start; padding-left: 5%; }
+        .hero-content { max-width: 800px; }
+        .hero h1 { font-size: 4.5rem; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; font-style: italic; }
+        .hero p { font-size: 1.2rem; color: var(--silver); margin-bottom: 2.5rem; max-width: 650px; }
+        .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
 
-        /* 1. Header & Logo Section */
-        header {
-            background: var(--white);
-            color: var(--primary-red);
-            padding: 20px 0;
-            border-bottom: 3px solid var(--primary-red);
-        }
+        /* ==========================================================================
+           4. ABOUT / FAMILY OWNED SECTION (Pulled from Flyer)
+           ========================================================================== */
+        .about-section { background: var(--bg-steel); border-top: 4px solid var(--accent-red); }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .about-text h2 { font-size: 2.5rem; color: var(--accent-red); margin-bottom: 1.5rem; }
+        .about-text p { font-size: 1.1rem; color: var(--silver); margin-bottom: 1.5rem; font-style: italic; border-left: 4px solid var(--accent-red); padding-left: 1rem; }
+        .about-image { background: var(--bg-dark); height: 400px; border-radius: 8px; border: 1px solid #333; display: flex; align-items: center; justify-content: center; color: var(--silver); }
 
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        /* ==========================================================================
+           5. SERVICES SECTION (Matched to Flyer)
+           ========================================================================== */
+        .services-section { background: var(--bg-dark); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+        .service-card { background: var(--bg-steel); padding: 2.5rem; border-top: 4px solid transparent; border-radius: 6px; transition: var(--transition); border: 1px solid #222; }
+        .service-card:hover { border-top-color: var(--accent-red); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .service-card i { font-size: 2.5rem; color: var(--accent-red); margin-bottom: 1.5rem; display: block; }
+        .service-card h4 { font-size: 1.3rem; margin-bottom: 1rem; }
+        .service-card p { color: var(--silver); font-size: 0.95rem; margin-bottom: 1.5rem; }
+        .service-card a { color: var(--white); font-weight: bold; font-size: 0.9rem; border-bottom: 1px solid var(--accent-red); padding-bottom: 2px; }
 
-        .logo {
-            font-size: 2.5em;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-style: italic; /* Mimics flyer style */
-        }
+        /* ==========================================================================
+           6. PRICING SECTION (Ready for edits)
+           ========================================================================== */
+        .pricing-section { background: var(--bg-steel); }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; }
+        .price-card { background: var(--bg-dark); padding: 1.5rem 2rem; border-radius: 6px; border: 1px solid #333; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .price-info h4 { margin-bottom: 0.2rem; font-size: 1.1rem; }
+        .price-info p { color: var(--silver); font-size: 0.85rem; }
+        .price-val { font-size: 1.3rem; font-weight: 900; color: var(--accent-red); font-family: var(--font-head); }
+        .pricing-disclaimer { margin-top: 3rem; background: rgba(204, 0, 0, 0.1); border-left: 4px solid var(--accent-red); padding: 1.5rem; color: var(--silver); font-size: 0.95rem; border-radius: 0 6px 6px 0; }
 
-        .cta-button {
-            background-color: var(--primary-red);
-            color: var(--white);
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
+        /* ==========================================================================
+           7. BOOKING & CONTACT SECTION (Matched to Flyer Contact Info)
+           ========================================================================== */
+        .contact-section { background: var(--bg-dark); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        
+        /* Form Styles */
+        .booking-form { display: flex; flex-direction: column; gap: 1.2rem; background: var(--bg-steel); padding: 2.5rem; border-radius: 8px; border: 1px solid #222; }
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        label { font-size: 0.9rem; font-weight: 500; color: var(--silver); }
+        input, select, textarea { width: 100%; padding: 14px; background: var(--bg-dark); border: 1px solid #333; color: var(--white); border-radius: 4px; font-family: var(--font-body); }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent-red); }
+        .checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .form-success { display: none; background: #155724; color: #d4edda; padding: 1rem; border-radius: 4px; border: 1px solid #c3e6cb; margin-bottom: 1rem; font-weight: bold; }
 
-        .cta-button:hover {
-            background-color: #990000;
-        }
+        /* Contact Info Card Styles */
+        .contact-info { background: var(--bg-steel); padding: 2.5rem; border-radius: 8px; border-top: 4px solid var(--accent-red); display: flex; flex-direction: column; gap: 2rem; }
+        .info-item { display: flex; gap: 1.5rem; align-items: flex-start; }
+        .info-item i { color: var(--accent-red); font-size: 1.5rem; margin-top: 4px; background: rgba(204,0,0,0.1); padding: 15px; border-radius: 50%; }
+        .info-item h4 { margin-bottom: 0.2rem; }
+        .info-item p { color: var(--silver); font-size: 0.95rem; }
+        
+        .contact-numbers { display: flex; flex-direction: column; gap: 0.3rem; }
+        .contact-numbers span { font-weight: bold; color: var(--white); font-size: 1.1rem; }
 
-        /* 2. Hero Section - Our Commitment */
-        .hero {
-            background-color: var(--white);
-            padding: 80px 0;
-            text-align: center;
-        }
+        /* ==========================================================================
+           8. FOOTER
+           ========================================================================== */
+        footer { background: #080808; border-top: 1px solid #222; padding-top: 4rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem; width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto; }
+        .footer-col h4 { color: var(--white); margin-bottom: 1.5rem; font-size: 1.2rem; text-transform: uppercase; }
+        .footer-col p { color: var(--silver); margin-bottom: 1rem; font-size: 0.95rem; }
+        .social-btn { display: inline-flex; align-items: center; gap: 10px; background: #1877F2; color: white; padding: 10px 20px; border-radius: 4px; font-weight: bold; margin-top: 1rem; }
+        .social-btn:hover { background: #0c62d0; color: white; }
+        .footer-links li { margin-bottom: 0.8rem; }
+        .footer-links a { color: var(--silver); font-size: 0.95rem; }
+        .footer-links a:hover { color: var(--accent-red); padding-left: 5px; }
+        .footer-bottom { border-top: 2px solid var(--accent-red); padding: 1.5rem 5%; text-align: center; color: var(--silver); font-size: 0.9rem; background: #000; }
 
-        .hero h1 {
-            color: var(--primary-red);
-            font-size: 3em;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-
-        .hero p.commitment {
-            font-size: 1.2em;
-            color: #555;
-            max-width: 800px;
-            margin: 0 auto;
-            font-style: italic;
-        }
-
-        /* 3. Services Section */
-        .services {
-            padding: 60px 0;
-            background-color: #fcfcfc;
-        }
-
-        .services h2 {
-            text-align: center;
-            color: var(--dark-grey);
-            text-transform: uppercase;
-            margin-bottom: 40px;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .service-card {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border-top: 4px solid var(--primary-red);
-            transition: transform 0.3s;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .service-card h3 {
-            color: var(--primary-red);
-            margin-top: 0;
-        }
-
-        .service-card ul {
-            padding-left: 20px;
-            margin-bottom: 0;
-        }
-
-        /* 4. Location & Contact Section */
-        .contact {
-            padding: 60px 0;
-            background-color: #f9f9f9;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: start;
-        }
-
-        .location-info h2, .contact-info h2 {
-            color: var(--dark-grey);
-            text-transform: uppercase;
-        }
-
-        .info-block {
-            background: var(--white);
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .info-block strong {
-            display: block;
-            color: var(--primary-red);
-            margin-bottom: 5px;
-        }
-
-        /* 5. Footer & Social Link */
-        footer {
-            background: var(--dark-grey);
-            color: var(--white);
-            padding: 30px 0;
-            text-align: center;
-        }
-
-        .facebook-link {
-            color: #3b5998; /* Facebook Blue */
-            font-size: 1.2em;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .facebook-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Responsive Design Adjustments */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2em; }
-            .contact-grid { grid-template-columns: 1fr; }
-            .header-content { flex-direction: column; text-align: center; gap: 10px; }
+        /* ==========================================================================
+           9. MOBILE RESPONSIVENESS
+           ========================================================================== */
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 3rem; }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: rgba(13, 13, 13, 0.98); flex-direction: column; padding: 2rem 0; border-bottom: 2px solid var(--accent-red); }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: block; }
+            .hide-mobile { display: none; }
+            .checkbox-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="container header-content">
-            <div class="logo">JM Autoshop</div>
-            <a href="https://www.facebook.com/JMpohsotua" target="_blank" class="cta-button">Visit Our Facebook</a>
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-car text-red"></i> JM AUTOSHOP
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#home" class="active">Home</a>
+                <a href="#about">Our Story</a>
+                <a href="#services">Services</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#contact">Contact Us</a>
+                <a href="#contact" class="btn btn-red hide-mobile" style="padding: 10px 20px; font-size: 0.8rem;">Book Now</a>
+            </div>
+            <i class="fa-solid fa-bars menu-toggle" id="menuToggle" aria-label="Toggle Navigation"></i>
         </div>
-    </header>
+    </nav>
 
-    <section class="hero">
-        <div class="container">
-            <h1>Auto Repair & Maintenance</h1>
-            <p class="commitment">
-                "Our commitment to customer service sets us apart from other car repair shops. We are locally owned and operated, and as a family-owned business, we understand how important it is to have a safe vehicle to take you to work, school, and every place you want to go."
-            </p>
+    <section id="home" class="hero">
+        <div class="hero-content fade-up">
+            <h1>Auto Repair & <br><span class="text-red">Maintenance</span></h1>
+            <p>Your trusted family-owned auto repair shop in Zamboanga City. We fix it right, every time.</p>
+            <div class="hero-btns">
+                <a href="#contact" class="btn btn-red">Book an Appointment →</a>
+                <a href="https://www.facebook.com/JMpohsotua" target="_blank" class="btn btn-silver"><i class="fa-brands fa-facebook"></i> Visit Our Facebook</a>
+            </div>
         </div>
     </section>
 
-    <section class="services">
+    <section id="about" class="about-section">
+        <div class="container about-grid">
+            <div class="about-text fade-up">
+                <h2>Our Commitment to Customer Service</h2>
+                <p>"Our commitment to customer service sets us apart from other car repair shops. We are locally owned and operated, and as a family-owned business, we understand how important it is to have a safe vehicle to take you to work, school and every places you want."</p>
+                <ul style="margin-top: 2rem; color: var(--silver); line-height: 2;">
+                    <li><i class="fa-solid fa-check text-red" style="margin-right: 10px;"></i> Locally Owned & Operated</li>
+                    <li><i class="fa-solid fa-check text-red" style="margin-right: 10px;"></i> Family-Run Business</li>
+                    <li><i class="fa-solid fa-check text-red" style="margin-right: 10px;"></i> Focus on Vehicle Safety</li>
+                </ul>
+            </div>
+            <div class="about-image fade-up">
+    <img src="images/jmautoshop-team.jpg" alt="JM Autoshop Garage Front" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+</div>
+        </div>
+    </section>
+
+    <section id="services" class="services-section">
         <div class="container">
-            <h2>Our Services</h2>
-            <div class="services-grid">
+            <div class="text-center fade-up">
+                <h2 class="section-title">Our Services</h2>
+                <p class="section-subtitle">Comprehensive auto care to keep your vehicle running safely and smoothly.</p>
+            </div>
+
+            <div class="services-grid fade-up">
+                <div class="service-card">
+                    <i class="fa-solid fa-spray-can"></i>
+                    <h4>Repainting & Retouch</h4>
+                    <p>Professional repainting, washover, and retouching services to restore your vehicle's look. <strong>Comes with a 1-year warranty.</strong></p>
+                    <a href="#contact">Inquire Now →</a>
+                </div>
                 
                 <div class="service-card">
-                    <h3>Body & Paint</h3>
-                    <ul>
-                        <li>Repainting</li>
-                        <li>Washover</li>
-                        <li>Retouch</li>
-                        <li><em>Includes a one-year warranty.</em></li>
-                    </ul>
+                    <i class="fa-solid fa-bolt"></i>
+                    <h4>Electrical Services</h4>
+                    <p>Complete auto electrical diagnosis and repair to ensure all internal systems are functioning perfectly.</p>
+                    <a href="#contact">Inquire Now →</a>
                 </div>
 
                 <div class="service-card">
-                    <h3>Mechanical & Electrical</h3>
-                    <ul>
-                        <li>Electrical Services</li>
-                        <li>Engine General Overhauling</li>
-                        <li>Engine Rebuild</li>
-                        <li>Diagnose Trouble Codes</li>
-                    </ul>
+                    <i class="fa-solid fa-gears"></i>
+                    <h4>Engine Overhaul & Rebuild</h4>
+                    <p>General engine overhauling and rebuilding performed by expert mechanics to extend the life of your vehicle.</p>
+                    <a href="#contact">Inquire Now →</a>
                 </div>
 
                 <div class="service-card">
-                    <h3>Structural & Parts</h3>
-                    <ul>
-                        <li>Body Repair</li>
-                        <li>Welding Services</li>
-                        <li>Spare Parts Availability (Automotive cars & Light Trucks)</li>
-                        <li><em>Spare parts available on an Order Basis.</em></li>
-                    </ul>
+                    <i class="fa-solid fa-laptop-medical"></i>
+                    <h4>Diagnose Trouble Codes</h4>
+                    <p>Advanced computer diagnostics to read check engine lights and accurately pinpoint hidden vehicle issues.</p>
+                    <a href="#contact">Inquire Now →</a>
                 </div>
 
+                <div class="service-card">
+                    <i class="fa-solid fa-car-burst"></i>
+                    <h4>Body Repair & Welding</h4>
+                    <p>Expert body repair and structural welding services to fix collision damage and restore chassis integrity.</p>
+                    <a href="#contact">Inquire Now →</a>
+                </div>
+
+                <div class="service-card">
+                    <i class="fa-solid fa-box-open"></i>
+                    <h4>Spare Parts (Order Basis)</h4>
+                    <p>We source and supply high-quality spare parts for automotive cars and Light Trucks on an order basis.</p>
+                    <a href="#contact">Inquire Now →</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="contact">
-        <div class="container contact-grid">
-            
-            <div class="location-info">
-                <h2>Visit Us</h2>
-                <div class="info-block">
-                    <strong>Address:</strong>
-                    Boalan, Zamboanga City
-                </div>
-                </div>
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <div class="text-center fade-up">
+                <h2 class="section-title">Service Estimates</h2>
+                <p class="section-subtitle">Contact us for exact quotations based on your specific vehicle model and condition.</p>
+            </div>
 
-            <div class="contact-info">
-                <h2>Contact Us</h2>
-                <div class="info-block">
-                    <strong>Phone Numbers:</strong>
-                    0917-780-0360<br>
-                    0905-712-6739<br>
-                    975-1914
+            <div class="pricing-grid fade-up">
+                <div class="price-card">
+                    <div class="price-info">
+                        <h4>Computer Diagnostics</h4>
+                        <p>Trouble code reading</p>
+                    </div>
+                    <div class="price-val">Inquire</div>
+                </div>
+                <div class="price-card">
+                    <div class="price-info">
+                        <h4>Washover / Repainting</h4>
+                        <p>Includes 1-Year Warranty</p>
+                    </div>
+                    <div class="price-val">Inquire</div>
+                </div>
+                <div class="price-card">
+                    <div class="price-info">
+                        <h4>Electrical Check</h4>
+                        <p>Basic electrical system diagnosis</p>
+                    </div>
+                    <div class="price-val">Inquire</div>
+                </div>
+                <div class="price-card">
+                    <div class="price-info">
+                        <h4>Engine Overhaul</h4>
+                        <p>Labor estimate (parts separate)</p>
+                    </div>
+                    <div class="price-val">Inquire</div>
                 </div>
             </div>
 
+            <div class="pricing-disclaimer fade-up">
+                ⚠️ <strong>Note:</strong> Final pricing is confirmed after physical inspection of the vehicle. Labor and parts costs vary based on vehicle type, make, model, and the extent of the damage. We will always consult you before proceeding with major repairs.
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="text-center fade-up">
+                <h2 class="section-title">Visit Us or Book a Service</h2>
+                <p class="section-subtitle">Send us a message or drop by our shop in Boalan.</p>
+            </div>
+
+            <div class="contact-grid fade-up">
+                <div>
+                    <div class="form-success" id="formSuccess">
+                        <i class="fa-solid fa-circle-check"></i> Request received! We will contact you shortly to confirm your schedule.
+                    </div>
+                    <form class="booking-form" id="bookingForm" action="https://script.google.com/macros/s/AKfycbyoRdEDAfbjHUrzU1-xFZ9RfLvI6SftqeFkHo7hOVfT6l9NOIqg1UOKjDl2v33RH4k-/exec" method="POST">
+                        <h3 style="color: var(--white); margin-bottom: 1rem; font-size: 1.5rem;">Request an Appointment</h3>
+                        
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Contact Number *</label>
+                            <input type="tel" id="phone" placeholder="e.g., 0917-000-0000" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="vehicle">Vehicle Make & Model *</label>
+                            <input type="text" id="vehicle" placeholder="e.g., Toyota Vios 2019" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="service">Service Needed *</label>
+                            <select id="service" required>
+                                <option value="" disabled selected>Select a service...</option>
+                                <option>Repainting / Washover</option>
+                                <option>Electrical Service</option>
+                                <option>Engine Overhaul</option>
+                                <option>Diagnose Trouble Code</option>
+                                <option>Body Repair / Welding</option>
+                                <option>Order Spare Parts</option>
+                                <option>Other General Maintenance</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="problem">Additional Details</label>
+                            <textarea id="problem" rows="3" placeholder="Describe any specific issues you are experiencing..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-red" style="width: 100%; margin-top: 1rem; font-size: 1.1rem;">Submit Request</button>
+                    </form>
+                </div>
+
+                <div>
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                <h4>Shop Location</h4>
+                                <p>Boalan, Zamboanga City<br>Zamboanga Peninsula, 7000</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fa-solid fa-phone"></i>
+                            <div>
+                                <h4>Contact Numbers</h4>
+                                <div class="contact-numbers">
+                                    <span>0917-780-0360</span>
+                                    <span>0905-712-6739</span>
+                                    <span>975-1914</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <i class="fa-brands fa-facebook-f"></i>
+                            <div>
+                                <h4>Social Media</h4>
+                                <p>Message us directly on our Facebook page for quick replies and updates.</p>
+                                <a href="https://www.facebook.com/JMpohsotua" target="_blank" class="social-btn">
+                                    <i class="fa-brands fa-facebook"></i> Message us on Facebook
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <footer>
-        <div class="container">
-            <p>Connect with us on Social Media:</p>
-            <a href="https://www.facebook.com/JMpohsotua" target="_blank" class="facebook-link">JM Autoshop Facebook Page</a>
-            <p style="font-size: 0.8em; margin-top: 20px;">&copy; 2023 JM Autoshop. All rights reserved.</p>
+        <div class="footer-grid fade-up">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 1rem;">
+                    <i class="fa-solid fa-car text-red"></i> JM AUTOSHOP
+                </div>
+                <p>Your trusted family-owned auto repair and maintenance shop located in Boalan, Zamboanga City. We ensure your vehicle is safe for every journey.</p>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">Our Story</a></li>
+                    <li><a href="#services">Services Offered</a></li>
+                    <li><a href="#contact">Book Appointment</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <ul class="footer-links">
+                    <li style="color: var(--silver);"><i class="fa-solid fa-location-dot text-red" style="width: 25px;"></i> Boalan, Zamboanga City</li>
+                    <li style="color: var(--silver);"><i class="fa-solid fa-mobile-screen text-red" style="width: 25px;"></i> 0917-780-0360</li>
+                    <li style="color: var(--silver);"><i class="fa-solid fa-mobile-screen text-red" style="width: 25px;"></i> 0905-712-6739</li>
+                    <li style="color: var(--silver);"><i class="fa-solid fa-phone text-red" style="width: 25px;"></i> 975-1914</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 JM Autoshop. All rights reserved. Locally Owned & Operated in Zamboanga City.
         </div>
     </footer>
 
-</body>
-</html>
+    <script>
+        // 1. Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            // Toggle icon between bars and X
+            if(navLinks.classList.contains('active')) {
+                menuToggle.classList.remove('fa-bars');
+                menuToggle.classList.add('fa-xmark');
+            } else {
+                menuToggle.classList.remove('fa-xmark');
+                menuToggle.classList.add('fa-bars');
+            }
+        });
+
+        // Close menu when a link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('fa-xmark');
+                menuToggle.classList.add('fa-bars');
+            });
+        });
+
+        // 2. Scroll Reveal Animations (Fade up on scroll)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Run once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // 3. Highlight Active Navigation Link on Scroll
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('.nav-links a:not(.btn)');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href').includes(current) && current !== '') {
+                    a.classList.add('active');
+                }
+            });
+        });
+
+        // 4. Form Submission Handling (Sends to Google Sheets)
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Stop the page from reloading
+            
+            const form = e.target;
+            const data = new FormData(form);
+            const action = form.action;
+
+            // Show "Sending..." status on the button (optional)
+            const btn = form.querySelector('button');
+            const originalBtnText = btn.innerText;
+            btn.innerText = "Sending...";
+            btn.disabled = true;
+
+            // Use Fetch to send the data to Google without leaving the page
+            fetch(action, {
+                method: 'POST',
+                body: data,
+                mode: 'no-cors' // Required for Google Apps Script
+            })
+            .then(() => {
+                // Show success message
+                const successMsg = document.getElementById('formSuccess');
+                successMsg.style.display = 'block';
+                
+                // Reset form and button
+                form.reset();
+                btn.innerText = originalBtnText;
+                btn.disabled = false;
+
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 5000);
+            })
+            .catch(error => {
+                alert("Something went wrong. Please try again or message us on Facebook!");
+                btn.innerText = originalBtnText;
+                btn.disabled = false;
+            });
+        });
