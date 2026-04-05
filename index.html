@@ -178,26 +178,66 @@
     <footer style="text-align: center; padding: 50px 20px; background: #000; border-top: 1px solid var(--glass-border);">
         <p style="color: var(--text-dim); font-size: 0.9rem;">&copy; 2026 JM Autoshop. Boalan, Zamboanga City. All rights reserved.</p>
     </footer>
-        <script>
-  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-  
-  formspree('initForm', { 
-    formElement: '#booking-form', 
-    formId: 'xqeggjzd',
-    onSuccess: function(form, data) {
-      // 1. This clears all text fields and resets selects
-      form.reset(); 
+        <script src="https://unpkg.com/@formspree/ajax@1"></script>
+
+    <script>
+      var form = document.getElementById("booking-form");
       
-      // 2. Optional: If you want to automatically hide the success message 
-      // after 5 seconds so they can see the empty form again:
-      setTimeout(() => {
-        document.querySelector('[data-fs-success]').style.display = 'none';
-        form.style.display = 'block';
-      }, 5000);
-    }
-  });
-</script>
-<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+      async function handleSubmit(event) {
+        event.preventDefault();
+        var statusSuccess = document.querySelector('[data-fs-success]');
+        var statusError = document.querySelector('[data-fs-error]');
+        var button = document.querySelector('[data-fs-submit-btn]');
+        
+        // 1. Visual Feedback: Change button text so user knows it's working
+        button.innerHTML = "SENDING...";
+        button.disabled = true;
+
+        var data = new FormData(event.target);
+        
+        fetch(event.target.action, {
+          method: form.method,
+          body: data,
+          headers: {
+              'Accept': 'application/json'
+          }
+        }).then(response => {
+          if (response.ok) {
+            // 2. Success Actions
+            statusSuccess.style.display = "block";
+            form.reset(); // Clears the text boxes
+            button.innerHTML = "CONFIRM BOOKING";
+            button.disabled = false;
+            
+            // Hide the form so they only see the Success message
+            form.style.opacity = "0.3";
+            form.style.pointerEvents = "none";
+
+            // Bring the form back after 5 seconds
+            setTimeout(() => {
+              statusSuccess.style.display = "none";
+              form.style.opacity = "1";
+              form.style.pointerEvents = "all";
+            }, 5000);
+
+          } else {
+            response.json().then(data => {
+              if (Object.hasOwn(data, 'errors')) {
+                statusError.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+              } else {
+                statusError.innerHTML = "❌ Oops! There was a problem submitting your form";
+              }
+              statusError.style.display = "block";
+            })
+          }
+        }).catch(error => {
+          statusError.innerHTML = "❌ Connection error. Please check your internet.";
+          statusError.style.display = "block";
+        });
+      }
+      
+      form.addEventListener("submit", handleSubmit)
+    </script>
 
 </body>
 </html>
