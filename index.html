@@ -63,24 +63,20 @@
         ul { list-style: none; }
         img { max-width: 100%; height: auto; display: block; }
         
-        /* Utility Classes */
         .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 5rem 0; }
         .text-center { text-align: center; }
         .text-red { color: var(--accent-red); }
         .section-title { font-size: 2.5rem; text-transform: uppercase; color: var(--white); }
         .section-subtitle { font-size: 1.1rem; color: var(--silver); margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto; }
         
-        /* Buttons */
         .btn { display: inline-block; padding: 14px 28px; font-weight: 700; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-family: var(--font-head); transition: var(--transition); border: 2px solid transparent; text-align: center; }
         .btn-red { background: var(--accent-red); color: var(--white); }
         .btn-red:hover { background: var(--accent-red-hover); transform: translateY(-2px); }
         .btn-silver { background: transparent; color: var(--silver); border-color: var(--silver); }
         .btn-silver:hover { background: var(--silver); color: var(--bg-dark); }
         
-        /* Animations */
         .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .fade-up.visible { opacity: 1; transform: translateY(0); }
-        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
 
         /* ==========================================================================
            2. NAVIGATION BAR
@@ -97,81 +93,58 @@
            3. HERO SECTION
            ========================================================================== */
         .hero { height: 100vh; min-height: 600px; background: linear-gradient(to bottom, rgba(13,13,13,0.8), rgba(13,13,13,0.95)), url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&q=80') center/cover no-repeat; display: flex; align-items: center; justify-content: flex-start; padding-left: 5%; }
-        .hero-content { max-width: 800px; }
         .hero h1 { font-size: 4.5rem; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; font-style: italic; }
         .hero p { font-size: 1.2rem; color: var(--silver); margin-bottom: 2.5rem; max-width: 650px; }
         .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
 
         /* ==========================================================================
-           4. ABOUT / FAMILY OWNED SECTION (Pulled from Flyer)
+           4. ABOUT SECTION
            ========================================================================== */
         .about-section { background: var(--bg-steel); border-top: 4px solid var(--accent-red); }
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
         .about-text h2 { font-size: 2.5rem; color: var(--accent-red); margin-bottom: 1.5rem; }
         .about-text p { font-size: 1.1rem; color: var(--silver); margin-bottom: 1.5rem; font-style: italic; border-left: 4px solid var(--accent-red); padding-left: 1rem; }
-        .about-image { background: var(--bg-dark); height: 400px; border-radius: 8px; border: 1px solid #333; display: flex; align-items: center; justify-content: center; color: var(--silver); }
+        .about-image { background: var(--bg-dark); height: auto; min-height: 300px; border-radius: 8px; border: 1px solid #333; overflow: hidden; display: flex; }
+        .about-image img { width: 100%; height: 100%; object-fit: cover; }
 
         /* ==========================================================================
-           5. SERVICES SECTION (Matched to Flyer)
+           5. SERVICES SECTION
            ========================================================================== */
         .services-section { background: var(--bg-dark); }
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
         .service-card { background: var(--bg-steel); padding: 2.5rem; border-top: 4px solid transparent; border-radius: 6px; transition: var(--transition); border: 1px solid #222; }
-        .service-card:hover { border-top-color: var(--accent-red); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .service-card:hover { border-top-color: var(--accent-red); transform: translateY(-5px); }
         .service-card i { font-size: 2.5rem; color: var(--accent-red); margin-bottom: 1.5rem; display: block; }
-        .service-card h4 { font-size: 1.3rem; margin-bottom: 1rem; }
-        .service-card p { color: var(--silver); font-size: 0.95rem; margin-bottom: 1.5rem; }
-        .service-card a { color: var(--white); font-weight: bold; font-size: 0.9rem; border-bottom: 1px solid var(--accent-red); padding-bottom: 2px; }
 
         /* ==========================================================================
-           6. PRICING SECTION (Ready for edits)
+           6. PRICING SECTION
            ========================================================================== */
         .pricing-section { background: var(--bg-steel); }
         .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; }
-        .price-card { background: var(--bg-dark); padding: 1.5rem 2rem; border-radius: 6px; border: 1px solid #333; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-        .price-info h4 { margin-bottom: 0.2rem; font-size: 1.1rem; }
-        .price-info p { color: var(--silver); font-size: 0.85rem; }
+        .price-card { background: var(--bg-dark); padding: 1.5rem 2rem; border-radius: 6px; border: 1px solid #333; display: flex; justify-content: space-between; align-items: center; }
         .price-val { font-size: 1.3rem; font-weight: 900; color: var(--accent-red); font-family: var(--font-head); }
-        .pricing-disclaimer { margin-top: 3rem; background: rgba(204, 0, 0, 0.1); border-left: 4px solid var(--accent-red); padding: 1.5rem; color: var(--silver); font-size: 0.95rem; border-radius: 0 6px 6px 0; }
+        .pricing-disclaimer { margin-top: 3rem; background: rgba(204, 0, 0, 0.1); border-left: 4px solid var(--accent-red); padding: 1.5rem; color: var(--silver); }
 
         /* ==========================================================================
-           7. BOOKING & CONTACT SECTION (Matched to Flyer Contact Info)
+           7. CONTACT SECTION
            ========================================================================== */
         .contact-section { background: var(--bg-dark); }
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
-        
-        /* Form Styles */
         .booking-form { display: flex; flex-direction: column; gap: 1.2rem; background: var(--bg-steel); padding: 2.5rem; border-radius: 8px; border: 1px solid #222; }
         .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
-        label { font-size: 0.9rem; font-weight: 500; color: var(--silver); }
-        input, select, textarea { width: 100%; padding: 14px; background: var(--bg-dark); border: 1px solid #333; color: var(--white); border-radius: 4px; font-family: var(--font-body); }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent-red); }
-        .checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        .form-success { display: none; background: #155724; color: #d4edda; padding: 1rem; border-radius: 4px; border: 1px solid #c3e6cb; margin-bottom: 1rem; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 14px; background: var(--bg-dark); border: 1px solid #333; color: var(--white); border-radius: 4px; }
+        .form-success { display: none; background: #155724; color: #d4edda; padding: 1rem; border-radius: 4px; margin-bottom: 1rem; }
 
-        /* Contact Info Card Styles */
         .contact-info { background: var(--bg-steel); padding: 2.5rem; border-radius: 8px; border-top: 4px solid var(--accent-red); display: flex; flex-direction: column; gap: 2rem; }
         .info-item { display: flex; gap: 1.5rem; align-items: flex-start; }
-        .info-item i { color: var(--accent-red); font-size: 1.5rem; margin-top: 4px; background: rgba(204,0,0,0.1); padding: 15px; border-radius: 50%; }
-        .info-item h4 { margin-bottom: 0.2rem; }
-        .info-item p { color: var(--silver); font-size: 0.95rem; }
-        
-        .contact-numbers { display: flex; flex-direction: column; gap: 0.3rem; }
-        .contact-numbers span { font-weight: bold; color: var(--white); font-size: 1.1rem; }
+        .info-item i { color: var(--accent-red); font-size: 1.5rem; background: rgba(204,0,0,0.1); padding: 15px; border-radius: 50%; }
 
         /* ==========================================================================
            8. FOOTER
            ========================================================================== */
         footer { background: #080808; border-top: 1px solid #222; padding-top: 4rem; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem; width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto; }
-        .footer-col h4 { color: var(--white); margin-bottom: 1.5rem; font-size: 1.2rem; text-transform: uppercase; }
-        .footer-col p { color: var(--silver); margin-bottom: 1rem; font-size: 0.95rem; }
-        .social-btn { display: inline-flex; align-items: center; gap: 10px; background: #1877F2; color: white; padding: 10px 20px; border-radius: 4px; font-weight: bold; margin-top: 1rem; }
-        .social-btn:hover { background: #0c62d0; color: white; }
-        .footer-links li { margin-bottom: 0.8rem; }
-        .footer-links a { color: var(--silver); font-size: 0.95rem; }
-        .footer-links a:hover { color: var(--accent-red); padding-left: 5px; }
-        .footer-bottom { border-top: 2px solid var(--accent-red); padding: 1.5rem 5%; text-align: center; color: var(--silver); font-size: 0.9rem; background: #000; }
+        .footer-bottom { border-top: 2px solid var(--accent-red); padding: 1.5rem 5%; text-align: center; color: var(--silver); background: #000; }
 
         /* ==========================================================================
            9. MOBILE RESPONSIVENESS
@@ -179,11 +152,9 @@
         @media (max-width: 900px) {
             .hero h1 { font-size: 3rem; }
             .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: rgba(13, 13, 13, 0.98); flex-direction: column; padding: 2rem 0; border-bottom: 2px solid var(--accent-red); }
+            .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: rgba(13, 13, 13, 0.98); flex-direction: column; padding: 2rem 0; }
             .nav-links.active { display: flex; }
             .menu-toggle { display: block; }
-            .hide-mobile { display: none; }
-            .checkbox-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -191,18 +162,15 @@
 
     <nav>
         <div class="nav-container">
-            <a href="#" class="logo">
-                <i class="fa-solid fa-car text-red"></i> JM AUTOSHOP
-            </a>
+            <a href="#" class="logo"><i class="fa-solid fa-car text-red"></i> JM AUTOSHOP</a>
             <div class="nav-links" id="navLinks">
-                <a href="#home" class="active">Home</a>
+                <a href="#home">Home</a>
                 <a href="#about">Our Story</a>
                 <a href="#services">Services</a>
                 <a href="#pricing">Pricing</a>
                 <a href="#contact">Contact Us</a>
-                <a href="#contact" class="btn btn-red hide-mobile" style="padding: 10px 20px; font-size: 0.8rem;">Book Now</a>
             </div>
-            <i class="fa-solid fa-bars menu-toggle" id="menuToggle" aria-label="Toggle Navigation"></i>
+            <i class="fa-solid fa-bars menu-toggle" id="menuToggle"></i>
         </div>
     </nav>
 
@@ -211,8 +179,8 @@
             <h1>Auto Repair & <br><span class="text-red">Maintenance</span></h1>
             <p>Your trusted family-owned auto repair shop in Zamboanga City. We fix it right, every time.</p>
             <div class="hero-btns">
-                <a href="#contact" class="btn btn-red">Book an Appointment →</a>
-                <a href="https://www.facebook.com/JMpohsotua" target="_blank" class="btn btn-silver"><i class="fa-brands fa-facebook"></i> Visit Our Facebook</a>
+                <a href="#contact" class="btn btn-red">Book Appointment →</a>
+                <a href="https://www.facebook.com/JMpohsotua" target="_blank" class="btn btn-silver">Facebook</a>
             </div>
         </div>
     </section>
@@ -220,17 +188,17 @@
     <section id="about" class="about-section">
         <div class="container about-grid">
             <div class="about-text fade-up">
-                <h2>Our Commitment to Customer Service</h2>
-                <p>"Our commitment to customer service sets us apart from other car repair shops. We are locally owned and operated, and as a family-owned business, we understand how important it is to have a safe vehicle to take you to work, school and every places you want."</p>
-                <ul style="margin-top: 2rem; color: var(--silver); line-height: 2;">
-                    <li><i class="fa-solid fa-check text-red" style="margin-right: 10px;"></i> Locally Owned & Operated</li>
-                    <li><i class="fa-solid fa-check text-red" style="margin-right: 10px;"></i> Family-Run Business</li>
-                    <li><i class="fa-solid fa-check text-red" style="margin-right: 10px;"></i> Focus on Vehicle Safety</li>
+                <h2>Our Commitment</h2>
+                <p>"Locally owned and operated business. We understand how important it is to have a safe vehicle."</p>
+                <ul>
+                    <li><i class="fa-solid fa-check text-red"></i> Locally Owned & Operated</li>
+                    <li><i class="fa-solid fa-check text-red"></i> Family-Run Business</li>
+                    <li><i class="fa-solid fa-check text-red"></i> Focus on Safety</li>
                 </ul>
             </div>
             <div class="about-image fade-up">
-    <img src="images/jmautoshop-team.png" alt="JM Autoshop Garage Front" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
-</div>
+                <img src="images/jmautoshop-team.png" alt="JM Autoshop Team">
+            </div>
         </div>
     </section>
 
@@ -238,50 +206,23 @@
         <div class="container">
             <div class="text-center fade-up">
                 <h2 class="section-title">Our Services</h2>
-                <p class="section-subtitle">Comprehensive auto care to keep your vehicle running safely and smoothly.</p>
+                <p class="section-subtitle">Comprehensive auto care for all vehicle types.</p>
             </div>
-
             <div class="services-grid fade-up">
                 <div class="service-card">
                     <i class="fa-solid fa-spray-can"></i>
-                    <h4>Repainting & Retouch</h4>
-                    <p>Professional repainting, washover, and retouching services to restore your vehicle's look. <strong>Comes with a 1-year warranty.</strong></p>
-                    <a href="#contact">Inquire Now →</a>
+                    <h4>Repainting</h4>
+                    <p>Professional wash-over with 1-year warranty.</p>
                 </div>
-                
                 <div class="service-card">
                     <i class="fa-solid fa-bolt"></i>
-                    <h4>Electrical Services</h4>
-                    <p>Complete auto electrical diagnosis and repair to ensure all internal systems are functioning perfectly.</p>
-                    <a href="#contact">Inquire Now →</a>
+                    <h4>Electrical</h4>
+                    <p>Diagnosis and repair of all electrical systems.</p>
                 </div>
-
                 <div class="service-card">
                     <i class="fa-solid fa-gears"></i>
-                    <h4>Engine Overhaul & Rebuild</h4>
-                    <p>General engine overhauling and rebuilding performed by expert mechanics to extend the life of your vehicle.</p>
-                    <a href="#contact">Inquire Now →</a>
-                </div>
-
-                <div class="service-card">
-                    <i class="fa-solid fa-laptop-medical"></i>
-                    <h4>Diagnose Trouble Codes</h4>
-                    <p>Advanced computer diagnostics to read check engine lights and accurately pinpoint hidden vehicle issues.</p>
-                    <a href="#contact">Inquire Now →</a>
-                </div>
-
-                <div class="service-card">
-                    <i class="fa-solid fa-car-burst"></i>
-                    <h4>Body Repair & Welding</h4>
-                    <p>Expert body repair and structural welding services to fix collision damage and restore chassis integrity.</p>
-                    <a href="#contact">Inquire Now →</a>
-                </div>
-
-                <div class="service-card">
-                    <i class="fa-solid fa-box-open"></i>
-                    <h4>Spare Parts (Order Basis)</h4>
-                    <p>We source and supply high-quality spare parts for automotive cars and Light Trucks on an order basis.</p>
-                    <a href="#contact">Inquire Now →</a>
+                    <h4>Overhaul</h4>
+                    <p>Expert engine rebuilding and general overhauling.</p>
                 </div>
             </div>
         </div>
@@ -290,132 +231,65 @@
     <section id="pricing" class="pricing-section">
         <div class="container">
             <div class="text-center fade-up">
-                <h2 class="section-title">Service Estimates</h2>
-                <p class="section-subtitle">Contact us for exact quotations based on your specific vehicle model and condition.</p>
+                <h2 class="section-title">Estimates</h2>
             </div>
-
             <div class="pricing-grid fade-up">
                 <div class="price-card">
-                    <div class="price-info">
-                        <h4>Computer Diagnostics</h4>
-                        <p>Trouble code reading</p>
-                    </div>
+                    <div><h4>Computer Diagnosis</h4></div>
                     <div class="price-val">Inquire</div>
                 </div>
                 <div class="price-card">
-                    <div class="price-info">
-                        <h4>Washover / Repainting</h4>
-                        <p>Includes 1-Year Warranty</p>
-                    </div>
+                    <div><h4>Repainting</h4></div>
                     <div class="price-val">Inquire</div>
                 </div>
-                <div class="price-card">
-                    <div class="price-info">
-                        <h4>Electrical Check</h4>
-                        <p>Basic electrical system diagnosis</p>
-                    </div>
-                    <div class="price-val">Inquire</div>
-                </div>
-                <div class="price-card">
-                    <div class="price-info">
-                        <h4>Engine Overhaul</h4>
-                        <p>Labor estimate (parts separate)</p>
-                    </div>
-                    <div class="price-val">Inquire</div>
-                </div>
-            </div>
-
-            <div class="pricing-disclaimer fade-up">
-                ⚠️ <strong>Note:</strong> Final pricing is confirmed after physical inspection of the vehicle. Labor and parts costs vary based on vehicle type, make, model, and the extent of the damage. We will always consult you before proceeding with major repairs.
             </div>
         </div>
     </section>
 
     <section id="contact" class="contact-section">
         <div class="container">
-            <div class="text-center fade-up">
-                <h2 class="section-title">Visit Us or Book a Service</h2>
-                <p class="section-subtitle">Send us a message or drop by our shop in Boalan.</p>
-            </div>
-
             <div class="contact-grid fade-up">
                 <div>
-                    <div class="form-success" id="formSuccess">
-                        <i class="fa-solid fa-circle-check"></i> Request received! We will contact you shortly to confirm your schedule.
-                    </div>
+                    <div class="form-success" id="formSuccess">Request received! We'll contact you soon.</div>
                     <form class="booking-form" id="bookingForm" action="https://script.google.com/macros/s/AKfycbyoRdEDAfbjHUrzU1-xFZ9RfLvI6SftqeFkHo7hOVfT6l9NOIqg1UOKjDl2v33RH4k-/exec" method="POST">
-                        <h3 style="color: var(--white); margin-bottom: 1rem; font-size: 1.5rem;">Request an Appointment</h3>
-                        
+                        <h3>Book a Service</h3>
                         <div class="form-group">
-                            <label for="fullName">Full Name *</label>
-                            <input type="text" id="fullName" required>
+                            <label>Full Name</label>
+                            <input type="text" name="name" required>
                         </div>
-                        
                         <div class="form-group">
-                            <label for="phone">Contact Number *</label>
-                            <input type="tel" id="phone" placeholder="e.g., 0917-000-0000" required>
+                            <label>Phone Number</label>
+                            <input type="tel" name="phone" required>
                         </div>
-                        
                         <div class="form-group">
-                            <label for="vehicle">Vehicle Make & Model *</label>
-                            <input type="text" id="vehicle" placeholder="e.g., Toyota Vios 2019" required>
+                            <label>Vehicle Model</label>
+                            <input type="text" name="vehicle" required>
                         </div>
-
                         <div class="form-group">
-                            <label for="service">Service Needed *</label>
-                            <select id="service" required>
-                                <option value="" disabled selected>Select a service...</option>
-                                <option>Repainting / Washover</option>
-                                <option>Electrical Service</option>
-                                <option>Engine Overhaul</option>
-                                <option>Diagnose Trouble Code</option>
-                                <option>Body Repair / Welding</option>
-                                <option>Order Spare Parts</option>
-                                <option>Other General Maintenance</option>
+                            <label>Service Needed</label>
+                            <select name="service" required>
+                                <option value="">Choose...</option>
+                                <option>Repainting</option>
+                                <option>Electrical</option>
+                                <option>Overhaul</option>
                             </select>
                         </div>
-
                         <div class="form-group">
-                            <label for="problem">Additional Details</label>
-                            <textarea id="problem" rows="3" placeholder="Describe any specific issues you are experiencing..."></textarea>
+                            <label>Details</label>
+                            <textarea name="message" rows="3"></textarea>
                         </div>
-
-                        <button type="submit" class="btn btn-red" style="width: 100%; margin-top: 1rem; font-size: 1.1rem;">Submit Request</button>
+                        <button type="submit" class="btn btn-red">Submit Request</button>
                     </form>
                 </div>
 
-                <div>
-                    <div class="contact-info">
-                        <div class="info-item">
-                            <i class="fa-solid fa-location-dot"></i>
-                            <div>
-                                <h4>Shop Location</h4>
-                                <p>Boalan, Zamboanga City<br>Zamboanga Peninsula, 7000</p>
-                            </div>
-                        </div>
-                        
-                        <div class="info-item">
-                            <i class="fa-solid fa-phone"></i>
-                            <div>
-                                <h4>Contact Numbers</h4>
-                                <div class="contact-numbers">
-                                    <span>0917-780-0360</span>
-                                    <span>0905-712-6739</span>
-                                    <span>975-1914</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="info-item">
-                            <i class="fa-brands fa-facebook-f"></i>
-                            <div>
-                                <h4>Social Media</h4>
-                                <p>Message us directly on our Facebook page for quick replies and updates.</p>
-                                <a href="https://www.facebook.com/JMpohsotua" target="_blank" class="social-btn">
-                                    <i class="fa-brands fa-facebook"></i> Message us on Facebook
-                                </a>
-                            </div>
-                        </div>
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div><h4>Location</h4><p>Boalan, Zamboanga City</p></div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <div><h4>Phone</h4><p>0917-780-0360</p></div>
                     </div>
                 </div>
             </div>
@@ -423,144 +297,46 @@
     </section>
 
     <footer>
-        <div class="footer-grid fade-up">
-            <div class="footer-col">
-                <div class="logo" style="margin-bottom: 1rem;">
-                    <i class="fa-solid fa-car text-red"></i> JM AUTOSHOP
-                </div>
-                <p>Your trusted family-owned auto repair and maintenance shop located in Boalan, Zamboanga City. We ensure your vehicle is safe for every journey.</p>
-            </div>
-            
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <ul class="footer-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">Our Story</a></li>
-                    <li><a href="#services">Services Offered</a></li>
-                    <li><a href="#contact">Book Appointment</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-col">
-                <h4>Contact Us</h4>
-                <ul class="footer-links">
-                    <li style="color: var(--silver);"><i class="fa-solid fa-location-dot text-red" style="width: 25px;"></i> Boalan, Zamboanga City</li>
-                    <li style="color: var(--silver);"><i class="fa-solid fa-mobile-screen text-red" style="width: 25px;"></i> 0917-780-0360</li>
-                    <li style="color: var(--silver);"><i class="fa-solid fa-mobile-screen text-red" style="width: 25px;"></i> 0905-712-6739</li>
-                    <li style="color: var(--silver);"><i class="fa-solid fa-phone text-red" style="width: 25px;"></i> 975-1914</li>
-                </ul>
-            </div>
-        </div>
         <div class="footer-bottom">
-            &copy; 2026 JM Autoshop. All rights reserved. Locally Owned & Operated in Zamboanga City.
+            &copy; 2026 JM Autoshop. Boalan, Zamboanga City.
         </div>
     </footer>
 
     <script>
-        // 1. Mobile Menu Toggle
+        // Mobile Menu
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
-        
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            // Toggle icon between bars and X
-            if(navLinks.classList.contains('active')) {
-                menuToggle.classList.remove('fa-bars');
-                menuToggle.classList.add('fa-xmark');
-            } else {
-                menuToggle.classList.remove('fa-xmark');
-                menuToggle.classList.add('fa-bars');
-            }
-        });
+        menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
 
-        // Close menu when a link is clicked
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                menuToggle.classList.remove('fa-xmark');
-                menuToggle.classList.add('fa-bars');
-            });
-        });
-
-        // 2. Scroll Reveal Animations (Fade up on scroll)
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.15
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
+        // Scroll Animation
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target); // Run once
-                }
+                if (entry.isIntersecting) entry.target.classList.add('visible');
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-        document.querySelectorAll('.fade-up').forEach((el) => {
-            observer.observe(el);
-        });
-
-        // 3. Highlight Active Navigation Link on Scroll
-        const sections = document.querySelectorAll('section');
-        const navItems = document.querySelectorAll('.nav-links a:not(.btn)');
-
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (scrollY >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navItems.forEach(a => {
-                a.classList.remove('active');
-                if (a.getAttribute('href').includes(current) && current !== '') {
-                    a.classList.add('active');
-                }
-            });
-        });
-
-        // 4. Form Submission Handling (Sends to Google Sheets)
+        // FORM SUBMISSION FIX
         document.getElementById('bookingForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Stop the page from reloading
-            
-            const form = e.target;
-            const data = new FormData(form);
-            const action = form.action;
-
-            // Show "Sending..." status on the button (optional)
-            const btn = form.querySelector('button');
-            const originalBtnText = btn.innerText;
+            e.preventDefault();
+            const btn = this.querySelector('button');
             btn.innerText = "Sending...";
             btn.disabled = true;
 
-            // Use Fetch to send the data to Google without leaving the page
-            fetch(action, {
+            fetch(this.action, {
                 method: 'POST',
-                body: data,
-                mode: 'no-cors' // Required for Google Apps Script
-            })
-            .then(() => {
-                // Show success message
-                const successMsg = document.getElementById('formSuccess');
-                successMsg.style.display = 'block';
-                
-                // Reset form and button
-                form.reset();
-                btn.innerText = originalBtnText;
+                body: new FormData(this),
+                mode: 'no-cors'
+            }).then(() => {
+                document.getElementById('formSuccess').style.display = 'block';
+                this.reset();
+                btn.innerText = "Submit Request";
                 btn.disabled = false;
-
-                // Hide message after 5 seconds
-                setTimeout(() => {
-                    successMsg.style.display = 'none';
-                }, 5000);
-            })
-            .catch(error => {
-                alert("Something went wrong. Please try again or message us on Facebook!");
-                btn.innerText = originalBtnText;
+            }).catch(() => {
+                alert("Error! Try again.");
                 btn.disabled = false;
             });
         });
+    </script>
+</body>
+</html>
