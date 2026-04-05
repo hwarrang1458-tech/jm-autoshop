@@ -1,80 +1,270 @@
-<form class="booking-form" id="bookingForm" action="https://script.google.com/macros/s/AKfycbyoRdEDAfbjHUrzU1-xFZ9RfLvI6SftqeFkHo7hOVfT6l9NOIqg1UOKjDl2v33RH4k-/exec" method="POST">
-    <h3 style="color: var(--white); margin-bottom: 1rem; font-size: 1.5rem;">Request an Appointment</h3>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JM Autoshop | Professional Auto Repair Zamboanga</title>
     
-    <div class="form-group">
-        <label for="fullName">Full Name *</label>
-        <input type="text" id="fullName" name="fullName" required>
-    </div>
-    
-    <div class="form-group">
-        <label for="phone">Contact Number *</label>
-        <input type="tel" id="phone" name="phone" placeholder="e.g., 0917-000-0000" required>
-    </div>
-    
-    <div class="form-group">
-        <label for="vehicle">Vehicle Make & Model *</label>
-        <input type="text" id="vehicle" name="vehicle" placeholder="e.g., Toyota Vios 2019" required>
-    </div>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <div class="form-group">
-        <label for="service">Service Needed *</label>
-        <select id="service" name="service" required>
-            <option value="" disabled selected>Select a service...</option>
-            <option>Repainting / Washover</option>
-            <option>Electrical Service</option>
-            <option>Engine Overhaul</option>
-            <option>Diagnose Trouble Code</option>
-            <option>Body Repair / Welding</option>
-            <option>Order Spare Parts</option>
-            <option>Other General Maintenance</option>
-        </select>
-    </div>
+    <style>
+        :root {
+            --primary-red: #cc0000;
+            --dark-red: #8b0000;
+            --carbon-fiber: #0d0d0d;
+            --steel-gray: #1a1a1a;
+            --neon-white: #ffffff;
+            --text-gray: #b0b0b0;
+            --nav-bg: rgba(13, 13, 13, 0.95);
+        }
 
-    <div class="form-group">
-        <label for="problem">Additional Details</label>
-        <textarea id="problem" name="problem" rows="3" placeholder="Describe any specific issues you are experiencing..."></textarea>
-    </div>
+        /* 1. Global Styles & Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--carbon-fiber); 
+            color: var(--neon-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-    <button type="submit" class="btn btn-red" style="width: 100%; margin-top: 1rem; font-size: 1.1rem;">Submit Request</button>
-</form>
+        h1, h2, h3, .logo { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
 
-<div class="about-image fade-up">
-    <img src="./images/jmautoshop-team.jpg" alt="JM Autoshop Garage Front" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
-</div>
+        /* 2. Background Animation */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, rgba(204,0,0,0.05) 0%, transparent 100%);
+            z-index: -1;
+        }
 
-<script>
-    document.getElementById('bookingForm').addEventListener('submit', function(e) {
-        e.preventDefault(); 
+        /* 3. Immersive Navigation */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: var(--nav-bg);
+            border-bottom: 2px solid var(--primary-red);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo { font-size: 1.5rem; color: var(--neon-white); display: flex; align-items: center; gap: 10px; }
+        .logo span { color: var(--primary-red); }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: var(--neon-white); font-weight: 600; font-size: 0.8rem; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary-red); }
+
+        /* 4. Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=2000') center/cover;
+            padding: 0 5%;
+        }
+
+        .hero-content h1 { font-size: 4rem; margin-bottom: 1rem; text-shadow: 0 0 20px var(--primary-red); }
+        .hero-content p { font-size: 1.2rem; color: var(--text-gray); margin-bottom: 2rem; max-width: 700px; margin-inline: auto; }
+
+        /* 5. Modern Glassmorphism Form */
+        .booking-section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
         
-        const form = e.target;
-        const btn = form.querySelector('button');
-        const originalBtnText = btn.innerText;
+        .booking-card {
+            background: var(--steel-gray);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .booking-card::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--primary-red);
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--primary-red); text-transform: uppercase; font-size: 0.75rem; }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            background: #252525;
+            border: 1px solid #444;
+            color: white;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        input:focus { outline: none; border-color: var(--primary-red); box-shadow: 0 0 10px rgba(204,0,0,0.3); }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn-submit:hover { background: var(--dark-red); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(204,0,0,0.4); }
+
+        /* 6. Image Section */
+        .team-image-container {
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #333;
+            height: 100%;
+            min-height: 300px;
+        }
+
+        .team-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(30%) contrast(1.1);
+            transition: 0.5s;
+        }
+        .team-image-container:hover img { filter: grayscale(0%); transform: scale(1.05); }
+
+        /* 7. Success Message */
+        #formSuccess {
+            display: none;
+            background: #155724;
+            color: #d4edda;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Responsive Fixes */
+        @media (max-width: 900px) {
+            .booking-card { grid-template-columns: 1fr; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><i class="fas fa-car-side"></i> JM <span>AUTOSHOP</span></div>
+        <div class="nav-links">
+            <a href="#home">HOME</a>
+            <a href="#about">OUR STORY</a>
+            <a href="#booking">BOOK APPOINTMENT</a>
+            <a href="https://www.facebook.com/JMpohsotua" target="_blank">FACEBOOK</a>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>BUILT FOR THE ROAD</h1>
+            <p>Your trusted family-owned expert in engine overhauls, electrical services, and professional repainting in Boalan, Zamboanga City.</p>
+            <a href="#booking" class="btn-submit" style="padding: 15px 40px; text-decoration: none;">GET STARTED NOW</a>
+        </div>
+    </section>
+
+    <section id="booking" class="booking-section">
+        <div id="formSuccess">✅ Request Received! We'll contact you shortly.</div>
         
-        btn.innerText = "Sending...";
-        btn.disabled = true;
+        <div class="booking-card">
+            <div>
+                <h3>Request an Appointment</h3>
+                <p style="color: var(--text-gray); margin-bottom: 2rem;">Fill out the details below to schedule your visit.</p>
+                
+                <form id="bookingForm" action="https://script.google.com/macros/s/AKfycbyoRdEDAfbjHUrzU1-xFZ9RfLvI6SftqeFkHo7hOVfT6l9NOIqg1UOKjDl2v33RH4k-/exec" method="POST">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" name="fullName" placeholder="John Doe" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Contact Number *</label>
+                        <input type="tel" name="phone" placeholder="0917-000-0000" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Vehicle Make & Model *</label>
+                        <input type="text" name="vehicle" placeholder="Toyota Vios 2019" required>
+                    </div>
 
-        // Using URLSearchParams ensures the data is formatted correctly for Google Apps Script
-        const formData = new FormData(form);
-        const queryString = new URLSearchParams(formData).toString();
-        const action = form.action;
+                    <div class="form-group">
+                        <label>Service Needed *</label>
+                        <select name="service" required>
+                            <option value="" disabled selected>Select a service...</option>
+                            <option>Repainting / Washover</option>
+                            <option>Electrical Service</option>
+                            <option>Engine Overhaul</option>
+                            <option>General Maintenance</option>
+                        </select>
+                    </div>
 
-        fetch(action + "?" + queryString, {
-            method: 'POST',
-            mode: 'no-cors' 
-        })
-        .then(() => {
-            const successMsg = document.getElementById('formSuccess');
-            successMsg.style.display = 'block';
-            form.reset();
-            btn.innerText = originalBtnText;
-            btn.disabled = false;
-            setTimeout(() => { successMsg.style.display = 'none'; }, 5000);
-        })
-        .catch(error => {
-            console.error("Error!", error);
-            alert("Something went wrong. Please try again or message us on Facebook!");
-            btn.innerText = originalBtnText;
-            btn.disabled = false;
+                    <div class="form-group">
+                        <label>Additional Details</label>
+                        <textarea name="problem" rows="3" placeholder="Describe the issue..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="submitBtn">SEND REQUEST</button>
+                </form>
+            </div>
+
+            <div class="team-image-container">
+                <img src="images/jmautoshop-team.jpg" alt="JM Autoshop Team">
+                <div style="padding: 20px;">
+                    <h4 style="color: var(--primary-red);">FAMILY OWNED</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-gray);">Providing safe vehicles for work, school, and family travel since day one.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 40px; color: var(--text-gray); font-size: 0.8rem; border-top: 1px solid #333;">
+        &copy; 2026 JM AUTOSHOP | Boalan, Zamboanga City | 0917-780-0360
+    </footer>
+
+    <script>
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = "SENDING...";
+            btn.disabled = true;
+
+            const formData = new FormData(this);
+            const queryString = new URLSearchParams(formData).toString();
+
+            fetch(this.action + "?" + queryString, {
+                method: 'POST',
+                mode: 'no-cors'
+            }).then(() => {
+                document.getElementById('formSuccess').style.display = 'block';
+                this.reset();
+                btn.innerText = "SEND REQUEST";
+                btn.disabled = false;
+                window.scrollTo({ top: document.getElementById('booking').offsetTop - 100, behavior: 'smooth' });
+            });
         });
-    });
-</script>
+    </script>
+</body>
+</html>
